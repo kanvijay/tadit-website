@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import QuestionJourney from "./components/QuestionJourney";
 
 const heroFlowStages = [
   {
@@ -49,16 +49,6 @@ const knowledgeFragments = [
   "Relationships",
   "Regional rules",
   "Approval logic",
-];
-
-const journeySteps = [
-  "Definition",
-  "Policy",
-  "Hierarchy",
-  "Permission",
-  "Reasoning",
-  "Evidence",
-  "Trusted Answer",
 ];
 
 const taditDifferentiators = [
@@ -134,35 +124,6 @@ const platformOutputs = [
 ];
 
 function App() {
-  const [journeyProgress, setJourneyProgress] = useState(0);
-
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    if (reducedMotion.matches) {
-      setJourneyProgress(1);
-      return undefined;
-    }
-
-    const duration = 9000;
-    const start = performance.now();
-    let frame = 0;
-
-    const updateProgress = (time: number) => {
-      setJourneyProgress(((time - start) % duration) / duration);
-      frame = requestAnimationFrame(updateProgress);
-    };
-
-    frame = requestAnimationFrame(updateProgress);
-
-    return () => cancelAnimationFrame(frame);
-  }, []);
-
-  const activeJourneyStep = Math.min(
-    journeySteps.length - 1,
-    Math.round(journeyProgress * (journeySteps.length - 1)),
-  );
-
   return (
     <main className="site-shell">
       <header className="site-header" aria-label="Tadit navigation">
@@ -294,37 +255,7 @@ function App() {
         </div>
       </section>
 
-      <section className="journey-section" id="journey">
-        <div className="section-heading centered">
-          <p className="eyebrow">The question journey</p>
-          <h2>Every trusted answer has a journey.</h2>
-        </div>
-        <div
-          className="journey-visual glass-card"
-          style={{ "--journey-progress": `${journeyProgress * 100}%` } as React.CSSProperties}
-          aria-label="Question journey from definition to trusted answer"
-        >
-          <div className="journey-question">What is our revenue?</div>
-          <div className="journey-rail" aria-hidden="true">
-            <span className="journey-traveler">
-              <span className="journey-ball"></span>
-              <span className="journey-traveler-label">What is our revenue?</span>
-            </span>
-          </div>
-          <div className="journey-track">
-            {journeySteps.map((step, index) => (
-              <div
-                className={index === activeJourneyStep ? "journey-step active" : "journey-step"}
-                key={step}
-                style={{ "--step": index } as React.CSSProperties}
-              >
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{step}</strong>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <QuestionJourney />
 
       <section className="platform-section" id="layer">
         <div className="section-heading centered">
