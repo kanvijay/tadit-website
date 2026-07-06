@@ -158,9 +158,9 @@ function QuestionJourney() {
         </div>
 
         <div className="qj-flow" role="list" aria-label="Meaning layers">
-          <svg className="qj-connector" viewBox="0 0 1000 90" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M30 45 H970" />
-            <path className="active" d="M30 45 H970" />
+          <svg className="qj-connector" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M58 72 C170 44 222 116 318 118 C424 120 424 252 520 250 C632 248 646 360 748 356 C842 352 870 430 944 432" />
+            <path className="active" d="M58 72 C170 44 222 116 318 118 C424 120 424 252 520 250 C632 248 646 360 748 356 C842 352 870 430 944 432" />
           </svg>
 
           <div className="qj-traveler" aria-hidden="true">
@@ -176,6 +176,8 @@ function QuestionJourney() {
               key={step.label}
               label={step.label}
               onSelect={() => selectStep(index)}
+              subtext={step.subtext}
+              text={step.text}
             />
           ))}
         </div>

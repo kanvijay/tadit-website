@@ -4,9 +4,11 @@ type JourneyNodeProps = {
   isComplete: boolean;
   label: string;
   onSelect: () => void;
+  subtext: string;
+  text: string;
 };
 
-function JourneyNode({ index, isActive, isComplete, label, onSelect }: JourneyNodeProps) {
+function JourneyNode({ index, isActive, isComplete, label, onSelect, subtext, text }: JourneyNodeProps) {
   return (
     <button
       className={`qj-node${isActive ? " active" : ""}${isComplete ? " complete" : ""}`}
@@ -17,6 +19,10 @@ function JourneyNode({ index, isActive, isComplete, label, onSelect }: JourneyNo
     >
       <span>{String(index + 1).padStart(2, "0")}</span>
       <strong>{label}</strong>
+      <div className="qj-node-popover" role="tooltip">
+        <b>{text}</b>
+        <p>{subtext}</p>
+      </div>
     </button>
   );
 }
